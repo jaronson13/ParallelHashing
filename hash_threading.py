@@ -17,16 +17,13 @@ def hash_worker(table, partition):
 	for string in partition:
 		key = hash(string)
 		index = key % len(table)
-
 		if table[index] == 0:  # if index is open (no collision)
 			table[index] = string
 		else:  # if index is taken, begin chaining
 			if type(table[index]) is list: # check to see if chain already exists
 				new_list = table[index]
 				new_list.append(string)
-
 				table[index] = new_list
-
 			elif type(table[index]) is str: # create new chain if collision but no chain yet
 				new_list = []
 				new_list.append(table[index])
@@ -59,7 +56,6 @@ def create_parallel_table(table_size, threads, filename):
 
 		# create new thread for each division
 		all_threads.append(Thread(target=hash_worker, args=(table,file_list[start:end])))
-
 		start += division
 		end += division
 
@@ -84,7 +80,6 @@ def create_linear_table(table_size, filename):
 	file_list = list(map(str.strip, my_file.readlines()))
 
 	hash_worker(table, file_list)
-
 	return table
 
 def main():
