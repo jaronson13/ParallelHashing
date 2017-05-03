@@ -25,15 +25,13 @@ def hash_worker(table, partition):
 			if type(table[index]) is list: # check to see if chain already exists
 				new_list = table[index]
 				new_list.append(string)
-
 				table[index] = new_list
-
 			elif type(table[index]) is str: # create new chain if collision but no chain yet
 				new_list = []
 				new_list.append(table[index])
 				new_list.append(string)
-
 				table[index] = new_list
+				
 def create_parallel_table(table_size, processes, filename):
 #DESC:  This function creates a hash table and sends processes to the worker function.
 #		This funcion aids in the insertion process of creating the hash table.
@@ -58,10 +56,8 @@ def create_parallel_table(table_size, processes, filename):
 	end = division
 
 	for i in range(num_divisions): # iterate through each division of the data
-
 		# create new process for each division
 		procs.append(Process(target=hash_worker, args=(table,file_list[start:end])))
-
 		start += division
 		end += division
 
