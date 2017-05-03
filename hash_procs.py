@@ -18,8 +18,7 @@ def hash_worker(table, partition):
 	for string in partition:
 		key = hash(string)
 		index = key % len(table)
-
-
+		
 		if table[index] == 0:  # if index is open (no collision)
 			table[index] = string
 		else:  # if index is taken, begin chaining
